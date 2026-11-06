@@ -1,0 +1,40 @@
+{% include 'menu.html' %}
+{% load static %}
+
+<p><b>Recently edited movies</b></p>
+{% for movie in recent_movie %}
+<ul>
+<p> <li>{{movie.title | upper}}</li></p>
+</ul>
+{% endfor %}
+
+<h1>List Movies {{ visits }} times visited</h1>
+<table>
+    <tr><th>Title</th><th>Summary</th><th>Year</th><th>Actions</th></tr>
+
+{% for movie in movies %}
+
+<tr>
+    <td>
+       <b> {{movie.title | upper}} </b><br>
+
+
+        {% if movie.poster %}
+<img src="{{ movie.poster.url }}" alt="{{ movie.title }}" width="180" height="180">
+{% else %}
+    No poster available
+{% endif %}
+    </td>
+
+<td ><p> {{ movie.summary | default:'No data available' }}</p>
+</td>
+
+<td><h4>Year: {{ movie.year }}</h4></td>
+
+<td><a href="{% url 'edit' movie.id %}">edit</a>//<a href="{% url 'delete' movie.id %}">delete</a></td>
+
+</tr>
+{% endfor %}
+</table>
+
+
